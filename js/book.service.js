@@ -17,3 +17,8 @@ const gBooks = [
 function getBooks(){
     return gBooks
 }
+
+function removeBook(name){
+    const bookToRemove = gBooks.findIndex(book => book.name === name)
+    gBooks.splice(bookToRemove, 1) 
+}
