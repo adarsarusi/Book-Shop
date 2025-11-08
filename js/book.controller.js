@@ -15,7 +15,7 @@ function renderBooks() {
             <td>${book.name}</td>
             <td>${book.price}</td>
             <td><button>Read</button>
-            <button>Update</button>
+            <button onclick="onUpdateBook('${book.name}')">Update</button>
             <button onclick="onRemoveBook('${book.name}')">Delete</button></td>
         </tr>
         `)
@@ -27,5 +27,11 @@ function renderBooks() {
 
 function onRemoveBook(name) {
     removeBook(name)
+    renderBooks()
+}
+
+function onUpdateBook(name){
+    const newPrice = +prompt('Change price')
+    updatePrice(name, newPrice)
     renderBooks()
 }
