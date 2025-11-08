@@ -14,21 +14,26 @@ const gBooks = [
     }]
 
 
-function getBooks(){
+function getBooks() {
     return gBooks
 }
 
-function removeBook(name){
+function removeBook(name) {
     const bookToRemove = gBooks.findIndex(book => book.name === name)
-    gBooks.splice(bookToRemove, 1) 
+    gBooks.splice(bookToRemove, 1)
 }
 
-function updatePrice(name, price){
+function updatePrice(name, price) {
     const bookToUpdate = gBooks.findIndex(book => book.name === name)
     gBooks[bookToUpdate].price = price
 }
 
-function addBook(name, price){
+function addBook(name, price) {
     const book = { name, price }
     gBooks.push(book)
+}
+
+function getBookByName(name) {
+    const book = gBooks.find(book => book.name === name)
+    return book
 }

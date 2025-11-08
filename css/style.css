@@ -1,29 +1,38 @@
-body{
+body {
     margin: auto;
     /* display: flex;
     flex-direction: column; */
     text-align: center;
 }
 
-table{
+table {
     margin: auto;
     /* border: 2px solid; */
 }
 
-table, th, td {
-  border: 1px solid black;
-  text-align: left;
+table,
+th,
+td {
+    border: 1px solid black;
+    text-align: left;
 }
 
-td{
+td {
     padding: 10px;
     padding-left: 5px;
 }
 
-button{
+button {
     cursor: pointer;
 }
 
-.add-book{
+.add-book {
     margin-top: 20px;
+}
+
+.book-details-modal {
+    width: max-content;
+    padding: 10px;
+    background-color: whitesmoke;
+    border: 1px solid lightgray;
 }
