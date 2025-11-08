@@ -4,7 +4,7 @@ function onInit() {
 
 function renderBooks() {
     const books = getBooks()
-    const tableHeader = 
+    const tableHeader =
         `<tr>
             <th>Title</th>
             <th>Price</th>
@@ -30,8 +30,15 @@ function onRemoveBook(name) {
     renderBooks()
 }
 
-function onUpdateBook(name){
+function onUpdateBook(name) {
     const newPrice = +prompt('Change price')
     updatePrice(name, newPrice)
+    renderBooks()
+}
+
+function onAddBook() {
+    const bookName = prompt('Choose name')
+    const bookPrice = +prompt('Choose price')
+    addBook(bookName, bookPrice)
     renderBooks()
 }
