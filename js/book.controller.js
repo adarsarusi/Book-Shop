@@ -14,9 +14,9 @@ function renderBooks() {
         <tr>
             <td>${book.name}</td>
             <td>${book.price}</td>
-            <td><button onclick="onShowDetails('${book.name}')">Read</button>
-            <button onclick="onUpdateBook('${book.name}')">Update</button>
-            <button onclick="onRemoveBook('${book.name}')">Delete</button></td>
+            <td><button class="btn1" onclick="onShowDetails('${book.name}')">Read</button>
+            <button class="btn2" onclick="onUpdateBook('${book.name}')">Update</button>
+            <button class="btn3" onclick="onRemoveBook('${book.name}')">Delete</button></td>
         </tr>
         `)
 

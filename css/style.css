@@ -3,6 +3,7 @@ body {
     /* display: flex;
     flex-direction: column; */
     text-align: center;
+    background-color: #9fbef7;
 }
 
 table {
@@ -10,10 +11,18 @@ table {
     /* border: 2px solid; */
 }
 
+h1{
+    color: aquamarine;
+    font-size: 40px;
+    /* background-color: white; */
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
 table,
 th,
 td {
-    border: 1px solid black;
+    /* border: 1px solid rgb(0, 60, 255); */
+    border-radius: 2px;
     text-align: left;
 }
 
@@ -28,6 +37,7 @@ button {
 
 .add-book {
     margin-top: 20px;
+    background-color: rgb(102, 255, 0);
 }
 
 .book-details-modal {
@@ -35,4 +45,37 @@ button {
     padding: 10px;
     background-color: whitesmoke;
     border: 1px solid lightgray;
+}
+
+
+tr{
+   background-color: rgb(181, 246, 250);
+}
+
+tr:nth-child(odd){
+    background-color: rgb(156, 248, 228);
+}
+
+tr:first-child{
+    background-color: rgb(147, 196, 199);
+}
+
+
+button{
+    border-radius: 5px;
+    border: 0;
+    padding: 5px;
+    font-weight: bold;
+}
+
+.btn1{
+    background-color: rgb(0, 183, 255);
+}
+
+.btn2{
+    background-color: rgb(255, 238, 0);
+}
+
+.btn3{
+    background-color: rgb(255, 166, 0);
 }
