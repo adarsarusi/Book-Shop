@@ -6,37 +6,17 @@
     <title>Book Shop</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body onload="onInit()">
     
     <h1>Book Shop</h1>
 
     <table>
-       <tbody> 
+       <tbody class="book-shop"> 
         <tr>
             <th>Title</th>
             <th>Price</th>
             <th>Actions</th>
         </tr>
-        <tr>
-            <td>The Adventures of Lori Ipsi</td>
-            <td>120</td>
-            <td><button>Read</button>
-            <button>Update</button>
-        <button>Delete</button></td>
-        </tr>
-        <tr>
-            <td>World Atlas</td>
-            <td>300</td>
-            <td><button>Read</button>
-            <button>Update</button>
-        <button>Delete</button></td>
-        </tr>
-        <tr>
-            <td>Zorba the greek</td>
-            <td>87</td>
-            <td><button>Read</button>
-            <button>Update</button>
-        <button>Delete</button></td>
         </tr>
 </tbody>
 
@@ -44,6 +24,7 @@
 
     </table>
 
+    <script src="js/book.controller.js"></script>
     <script src="js/book.service.js"></script>
 </body>
 </html>
