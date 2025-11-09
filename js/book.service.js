@@ -37,18 +37,23 @@ function getBooks(filterBy){
 function removeBook(name) {
     const bookToRemove = gBooks.findIndex(book => book.name === name)
     gBooks.splice(bookToRemove, 1)
+    updateNotification('Removed book')
     _saveBooks()
 }
 
 function updatePrice(name, price) {
     const bookToUpdate = gBooks.findIndex(book => book.name === name)
     gBooks[bookToUpdate].price = price
+    updateNotification('Updated book')
     _saveBooks()
 }
 
 function addBook(name, price) {
+    if (!name || !price) return alert('Cannot add blank title/price')
+
     const book = { name, price }
     gBooks.push(book)
+    updateNotification('Added book')
     _saveBooks()
 }
 

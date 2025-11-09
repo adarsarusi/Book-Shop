@@ -32,14 +32,12 @@ function renderBooks() {
 function onRemoveBook(name) {
     removeBook(name)
     renderBooks()
-    updateNotification('Removed book')
 }
 
 function onUpdateBook(name) {
     const newPrice = +prompt('Change price')
     updatePrice(name, newPrice)
     renderBooks()
-    updateNotification('Updated book')
 }
 
 function onAddBook() {
@@ -47,7 +45,6 @@ function onAddBook() {
     const bookPrice = +prompt('Choose price')
     addBook(bookName, bookPrice)
     renderBooks()
-    updateNotification('Added book')
 }
 
 function onShowDetails(name){
