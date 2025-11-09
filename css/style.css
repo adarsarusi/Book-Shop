@@ -83,3 +83,9 @@ button{
 .search-book-input{
     margin-bottom: 10px;
 }
+
+.notification{
+    display: none;
+    color: blueviolet;
+    font-size: 30px;
+}

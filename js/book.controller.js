@@ -32,12 +32,14 @@ function renderBooks() {
 function onRemoveBook(name) {
     removeBook(name)
     renderBooks()
+    updateNotification('Removed book')
 }
 
 function onUpdateBook(name) {
     const newPrice = +prompt('Change price')
     updatePrice(name, newPrice)
     renderBooks()
+    updateNotification('Updated book')
 }
 
 function onAddBook() {
@@ -45,6 +47,7 @@ function onAddBook() {
     const bookPrice = +prompt('Choose price')
     addBook(bookName, bookPrice)
     renderBooks()
+    updateNotification('Added book')
 }
 
 function onShowDetails(name){
@@ -66,4 +69,11 @@ function clearSearch(ev){
     const elSearch = document.querySelector('.search-book-input')
     elSearch.value = gFilterBy = ''
     renderBooks()
+}
+
+function updateNotification(update){
+    const notification = document.querySelector('.notification')
+    notification.innerHTML = update + ' successfully!'
+    notification.style.display = 'block'
+    setTimeout(() => {notification.style.display = 'none'}, 2000)
 }
