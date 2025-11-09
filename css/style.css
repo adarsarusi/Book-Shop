@@ -79,3 +79,7 @@ button{
 .btn3{
     background-color: rgb(255, 166, 0);
 }
+
+.search-book-input{
+    margin-bottom: 10px;
+}

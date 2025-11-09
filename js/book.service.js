@@ -22,8 +22,16 @@ createBooks()
 //     }]
 
 
-function getBooks() {
-    return gBooks
+// function getBooks() {
+//     return gBooks
+// }
+
+// modified gBooks to support search, showing only specific books
+function getBooks(filterBy){
+    if (!filterBy) return gBooks
+
+    const filter = filterBy.toLowerCase()
+    return gBooks.filter(book => book.name.toLowerCase().includes(filter))
 }
 
 function removeBook(name) {

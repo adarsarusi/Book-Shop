@@ -1,9 +1,13 @@
+'use strict'
+
+var gFilterBy = ''
+
 function onInit() {
     renderBooks()
 }
 
 function renderBooks() {
-    const books = getBooks()
+    const books = getBooks(gFilterBy)
     const tableHeader =
         `<tr>
             <th>Title</th>
@@ -49,4 +53,17 @@ function onShowDetails(name){
     const book = getBookByName(name)
     elContent.innerText = JSON.stringify(book, null, 4)
     elBookDetailsModal.showModal()
+}
+
+function filterByInput(input){
+    // ev.preventDefault()
+    gFilterBy = input
+    renderBooks()
+}
+
+function clearSearch(ev){
+    ev.preventDefault()
+    const elSearch = document.querySelector('.search-book-input')
+    elSearch.value = gFilterBy = ''
+    renderBooks()
 }

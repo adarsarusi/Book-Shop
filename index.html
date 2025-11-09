@@ -12,6 +12,11 @@
 
     <h1>Book Shop</h1>
 
+    <form>
+        <input oninput="filterByInput(this.value)" class="search-book-input" type="text" placeholder="search" />
+        <button onclick="clearSearch(event)">Clear Input</button>
+    </form>
+
     <table>
         <tbody class="book-shop">
 
