@@ -89,3 +89,31 @@ button{
     color: blueviolet;
     font-size: 30px;
 }
+
+.flex-container{
+    width: 100%;
+    height: 5em;
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    justify-content: space-around;
+    align-items: center;
+
+    font-size: 20px;
+    color: aquamarine;
+    background-color: rgb(42, 87, 155);
+}
+
+.footer{
+    /* flex-grow: 1; */
+}
+
+aside{
+    /* display: flex;
+    flex-direction: column; */
+}
+
+.title{
+    font-weight: bold;
+    text-decoration-line: underline;
+}

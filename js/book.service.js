@@ -62,6 +62,13 @@ function getBookByName(name) {
     return book
 }
 
+function getBookStats(){
+    const expensiveBooks = gBooks.filter(book => book.price > 200).length
+    const averageBooks = gBooks.filter(book => book.price <= 200 && book.price >= 80).length
+    const cheapBooks = gBooks.filter(book => book.price < 80).length
+    return {expensiveBooks, averageBooks, cheapBooks}
+}
+
 function createBook(name, price){
     return { name, price }
 }

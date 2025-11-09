@@ -26,8 +26,17 @@ function renderBooks() {
 
     const elTable = document.querySelector('.book-shop')
     elTable.innerHTML = tableHeader + strHTMLs.join('')
+
+    renderStats()
 }
 
+function renderStats(){
+    const elStats = document.querySelector('.stats')
+
+    const bookStats = getBookStats()
+
+    elStats.innerHTML = `Expensive Books: ${bookStats.expensiveBooks}, Average Books: ${bookStats.averageBooks}, Cheap Books: ${bookStats.cheapBooks}`
+}
 
 function onRemoveBook(name) {
     removeBook(name)
