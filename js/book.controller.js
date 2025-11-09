@@ -8,21 +8,40 @@ function onInit() {
 
 function renderBooks() {
     const books = getBooks(gFilterBy)
-    const tableHeader =
-        `<tr>
+
+    var tableHeader
+    var strHTMLs
+
+    if (books.length < 1) {
+        tableHeader =
+            `<tr>
             <th>Title</th>
             <th>Price</th>
             <th>Actions</th>
         </tr>`
-    const strHTMLs = books.map(book => `
+
+        strHTMLs =[`
+        <tr>
+            <td colspan="3" class="no-books-found">No Matching books were found...</td>
+        </tr>`
+        ]
+    } else {
+        tableHeader =
+            `<tr>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>`
+        strHTMLs = books.map(book => `
         <tr>
             <td>${book.name}</td>
             <td>${book.price}</td>
-            <td><button class="btn1" onclick="onShowDetails('${book.name}')">Read</button>
+            <td class="book-btns"><button class="btn1" onclick="onShowDetails('${book.name}')">Read</button>
             <button class="btn2" onclick="onUpdateBook('${book.name}')">Update</button>
             <button class="btn3" onclick="onRemoveBook('${book.name}')">Delete</button></td>
-        </tr>
-        `)
+        </tr>`
+        )
+    }
 
     const elTable = document.querySelector('.book-shop')
     elTable.innerHTML = tableHeader + strHTMLs.join('')
@@ -30,7 +49,7 @@ function renderBooks() {
     renderStats()
 }
 
-function renderStats(){
+function renderStats() {
     const elStats = document.querySelector('.stats')
 
     const bookStats = getBookStats()
@@ -56,7 +75,7 @@ function onAddBook() {
     renderBooks()
 }
 
-function onShowDetails(name){
+function onShowDetails(name) {
     const elBookDetailsModal = document.querySelector('dialog.book-details-modal')
     const elContent = elBookDetailsModal.querySelector('.content')
     const book = getBookByName(name)
@@ -64,22 +83,22 @@ function onShowDetails(name){
     elBookDetailsModal.showModal()
 }
 
-function filterByInput(input){
+function filterByInput(input) {
     // ev.preventDefault()
     gFilterBy = input
     renderBooks()
 }
 
-function clearSearch(ev){
+function clearSearch(ev) {
     ev.preventDefault()
     const elSearch = document.querySelector('.search-book-input')
     elSearch.value = gFilterBy = ''
     renderBooks()
 }
 
-function updateNotification(update){
+function updateNotification(update) {
     const notification = document.querySelector('.notification')
     notification.innerHTML = update + ' successfully!'
     notification.style.display = 'block'
-    setTimeout(() => {notification.style.display = 'none'}, 2000)
+    setTimeout(() => { notification.style.display = 'none' }, 2000)
 }
