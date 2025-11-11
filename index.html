@@ -12,18 +12,52 @@
 
     <h1>Book Shop</h1>
 
-    <form>
-        <input oninput="filterByInput(this.value)" class="search-book-input" type="text" placeholder="search" />
-        <button onclick="clearSearch(event)">Clear Input</button>
-    </form>
+    <section class="book-filter">
+        <fieldset>
+            <legend>Filter & Sorting</legend>
+
+            <form>
+                <input oninput="onSetFilterBy()" class="search-book-input" type="text" placeholder="search" />
+                <button onclick="onClearSearch(event)">Clear Input</button>
+            </form>
+
+            <div class="sort-by">
+                <select class="sort-field" onchange="onSetFilterBy()">
+                    <option value="">Select Rating</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <div class="topDown">
+                    <label>
+                        <input type="radio" name="sort-order" value="asc" onchange="onSetSortBy()">
+                        Ascending
+                    </label>
+
+                    <label>
+                        <input type="radio" name="sort-order" value="desc" onchange="onSetSortBy()">
+                        Descending
+                    </label>
+                </div>
+
+            </div>
+        </fieldset>
+    </section>
+
 
     <table>
+        <thead>
+            <tr>
+            <th>Title</th>
+            <th>Price</th>
+            <th>Rating</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
         <tbody class="book-shop">
-
         </tbody>
-
-
-
     </table>
 
     <button class="add-book" onclick="onAddBook()">Add book</button>
@@ -41,14 +75,16 @@
         <div class="footer">@Adar Sarusi</div>
 
         <aside>
-        <div class="title">Statistics:</div>
-        <div class="stats"></div>
+            <div class="title">Statistics:</div>
+            <div class="stats"></div>
         </aside>
     </footer>
 
-    <script src="js/storage.service.js"></script>
+    <script src="js/services/util.service.js"></script>
+    <script src="js/services/storage.service.js"></script>
+    <script src="js/services/book.service.js"></script>
     <script src="js/book.controller.js"></script>
-    <script src="js/book.service.js"></script>
+    
 </body>
 
 </html>

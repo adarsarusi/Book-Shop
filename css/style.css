@@ -131,3 +131,21 @@ aside {
 .book-btns {
     text-align: center;
 }
+
+.book-filter{
+    margin: auto;
+    margin-bottom: 20px;
+    width: 60vw;
+    font-weight: bold;
+}
+
+.sort-by{
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+}
+
+.topDown{
+    display: flex;
+    flex-direction: column;
+}

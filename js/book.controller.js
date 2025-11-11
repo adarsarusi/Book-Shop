@@ -2,52 +2,42 @@
 
 var gFilterBy = ''
 
+const gQueryOptions = {
+    filterBy: { name: '', rating: 0 },
+    sortBy: {},
+    page: { idx: 0, size: 4 },
+}
+
 function onInit() {
     renderBooks()
 }
 
 function renderBooks() {
-    const books = getBooks(gFilterBy)
+    const books = getBooks(gQueryOptions)
 
-    var tableHeader
     var strHTMLs
 
     if (books.length < 1) {
-        tableHeader =
-            `<tr>
-            <th>Title</th>
-            <th>Price</th>
-            <th>Rating</th>
-            <th>Actions</th>
-        </tr>`
-
-        strHTMLs =[`
+        strHTMLs = [`
         <tr>
             <td colspan="4" class="no-books-found">No Matching books were found...</td>
         </tr>`
         ]
     } else {
-        tableHeader =
-            `<tr>
-            <th>Title</th>
-            <th>Price</th>
-            <th>Rating</th>
-            <th>Actions</th>
-        </tr>`
         strHTMLs = books.map(book => `
         <tr>
             <td>${book.name}</td>
             <td>${book.price}</td>
             <td class="book-btns">${STAR.repeat(book.rating)}</td>
-            <td class="book-btns"><button class="btn1" onclick="onShowDetails('${book.name}')">Read</button>
-            <button class="btn2" onclick="onUpdateBook('${book.name}')">Update</button>
-            <button class="btn3" onclick="onRemoveBook('${book.name}')">Delete</button></td>
+            <td class="book-btns"><button class="btn1" onclick="onShowDetails('${book.id}')">Read</button>
+            <button class="btn2" onclick="onUpdateBook('${book.id}')">Update</button>
+            <button class="btn3" onclick="onRemoveBook('${book.id}')">Delete</button></td>
         </tr>`
         )
     }
 
     const elTable = document.querySelector('.book-shop')
-    elTable.innerHTML = tableHeader + strHTMLs.join('')
+    elTable.innerHTML = strHTMLs.join('')
 
     renderStats()
 }
@@ -60,44 +50,64 @@ function renderStats() {
     elStats.innerHTML = `Expensive Books: ${bookStats.expensiveBooks}, Average Books: ${bookStats.averageBooks}, Cheap Books: ${bookStats.cheapBooks}`
 }
 
-function onRemoveBook(name) {
-    removeBook(name)
+function onRemoveBook(id) {
+    removeBook(id)
     renderBooks()
 }
 
-function onUpdateBook(name) {
+function onUpdateBook(id) {
     const newPrice = +prompt('Change price')
-    updatePrice(name, newPrice)
+    updatePrice(id, newPrice)
     renderBooks()
 }
 
 function onAddBook() {
     const bookName = prompt('Choose name')
     const bookPrice = +prompt('Choose price')
+    if (!bookName || !bookPrice) return alert('Cannot add blank title/price')
     addBook(bookName, bookPrice)
     renderBooks()
 }
 
-function onShowDetails(name) {
+function onShowDetails(id) {
     const elBookDetailsModal = document.querySelector('dialog.book-details-modal')
     const elContent = elBookDetailsModal.querySelector('.content')
-    const book = getBookByName(name)
+    const book = getBookById(id)
     elContent.innerHTML = `<h2>${book.name}</h2></br>
                            <h3>Price: ${book.price}, Rating: ${book.rating} </h3>
                            <img class="imgInModal" src="${book.img}">`
     elBookDetailsModal.showModal()
 }
 
-function filterByInput(input) {
-    // ev.preventDefault()
-    gFilterBy = input
+function onSetFilterBy() {
+    const elTxtInput = document.querySelector('.book-filter .search-book-input')
+    const elRatingInput = document.querySelector('.sort-field')
+
+    gQueryOptions.filterBy.name = elTxtInput.value
+    gQueryOptions.filterBy.rating = +elRatingInput.value
+
     renderBooks()
 }
 
-function clearSearch(ev) {
+function onSetSortBy() {
+    const elSortDir = document.querySelector('input[name="sort-order"]:checked')
+
+    gQueryOptions.sortBy.field = elSortDir.value
+    gQueryOptions.sortBy.dir = elSortDir.value === 'desc' ? -1 : 1
+
+    renderBooks()
+}
+
+function onClearSearch(ev) {
     ev.preventDefault()
     const elSearch = document.querySelector('.search-book-input')
     elSearch.value = gFilterBy = ''
+    const elSort = document.querySelector('.sort-field')
+    elSort.value = ''
+
+    gQueryOptions.filterBy.name = ''
+    gQueryOptions.filterBy.rating = 0
+
     renderBooks()
 }
 
