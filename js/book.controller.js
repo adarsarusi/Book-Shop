@@ -5,7 +5,7 @@ var gFilterBy = ''
 const gQueryOptions = {
     filterBy: { name: '', rating: 0 },
     sortBy: {},
-    page: { idx: 0, size: 4 },
+    page: { idx: 0, size: 5 },
 }
 
 function onInit() {
@@ -119,6 +119,22 @@ function updateNotification(update) {
     setTimeout(() => { notification.style.display = 'none' }, 2000)
 }
 
+function onChangePage(diff) {
+ 
+    var nextPageIdx = gQueryOptions.page.idx + diff
+    const totalPages = getTotalPagesCount(gQueryOptions)
+
+    // if (nextPageIdx >= totalPages) return
+    // if (nextPageIdx < 0) return
+    if (nextPageIdx >= totalPages) nextPageIdx = 0 // returning to the first page
+    if (nextPageIdx < 0) nextPageIdx = totalPages - 1 // forwarding to the last page
+
+    gQueryOptions.page.idx = nextPageIdx
+    document.querySelector('h3 .currPage').innerText = gQueryOptions.page.idx + 1
+
+    renderBooks()
+}
+
 //* Query Params
 function setQueryParams() {
     const queryParams = new URLSearchParams()
@@ -131,10 +147,10 @@ function setQueryParams() {
         queryParams.set('sortDir', gQueryOptions.sortBy.dir)
     }
 
-    // if (gQueryOptions.page) {
-    //     queryParams.set('pageIdx', gQueryOptions.page.idx)
-    //     queryParams.set('pageSize', gQueryOptions.page.size)
-    // }
+    if (gQueryOptions.page) {
+        queryParams.set('pageIdx', gQueryOptions.page.idx)
+        queryParams.set('pageSize', gQueryOptions.page.size)
+    }
 
     const newUrl =
         window.location.protocol + "//" +
@@ -160,10 +176,10 @@ function readQueryParams() {
         gQueryOptions.sortBy.dir = dir
     }
 
-    // if (queryParams.get('pageIdx')) {
-    //     gQueryOptions.page.idx = +queryParams.get('pageIdx')
-    //     gQueryOptions.page.size = +queryParams.get('pageSize')
-    // }
+    if (queryParams.get('pageIdx')) {
+        gQueryOptions.page.idx = +queryParams.get('pageIdx')
+        gQueryOptions.page.size = +queryParams.get('pageSize')
+    }
 
     renderQueryParams()
 }
@@ -178,5 +194,5 @@ function renderQueryParams() {
     document.querySelector('.sort-by select').value = sortField || ''
     document.querySelector('.sort-by input').checked = sortDir === -1
 
-    // document.querySelector('.page-idx').innerText = (gQueryOptions.page.idx || 0) + 1
+    document.querySelector('.currPage').innerText = (gQueryOptions.page.idx || 0) + 1
 }

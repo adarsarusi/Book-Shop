@@ -37,7 +37,7 @@ button {
 }
 
 .add-book {
-    margin-top: 20px;
+    /* margin-top: 10px; */
     background-color: rgb(102, 255, 0);
 }
 
@@ -148,4 +148,12 @@ aside {
 .topDown{
     display: flex;
     flex-direction: column;
+}
+
+.buttons{
+    display: flex;
+    margin: auto;
+    justify-content: space-around;
+    width: 80vw;
+    margin-top: 15px;
 }

@@ -22,12 +22,12 @@ function getBooks(options = {}) {
         booksToDisplay.sort((book1, book2) => (book1.rating - book2.rating) * sortBy.dir)
     }
 
-    return booksToDisplay
+    // return booksToDisplay
 
-    // const startIdx = page.idx * page.size
-    // const endIdx = startIdx + page.size
+    const startIdx = page.idx * page.size
+    const endIdx = startIdx + page.size
 
-    // return booksToDisplay.slice(startIdx, endIdx)
+    return booksToDisplay.slice(startIdx, endIdx)
 }
 
 function removeBook(id) {
@@ -77,6 +77,21 @@ function createBooks() {
         gBooks = [
             _createBook('The Adventures of Lori Ipsi', 120),
             _createBook('World Atlas', 300),
+            _createBook('Zorba the Greek', 87),
+            _createBook('The Adventures of Lori Ipsi', 120),
+            _createBook('World Atlas', 300),
+            _createBook('Zorba the Greek', 87),
+            _createBook('The Adventures of Lori Ipsi', 120),
+            _createBook('World Atlas', 300),
+            _createBook('Zorba the Greek', 87),
+            _createBook('The Adventures of Lori Ipsi', 120),
+            _createBook('World Atlas', 300),
+            _createBook('Zorba the Greek', 87),
+            _createBook('The Adventures of Lori Ipsi', 120),
+            _createBook('World Atlas', 300),
+            _createBook('Zorba the Greek', 87),
+            _createBook('The Adventures of Lori Ipsi', 120),
+            _createBook('World Atlas', 300),
             _createBook('Zorba the Greek', 87)
         ]
 
@@ -102,4 +117,11 @@ function _filterBooks(filterBy) {
     }
 
     return booksToDisplay
+}
+
+function getTotalPagesCount(options) {
+    const filterBy = options.filterBy
+    const page = options.page
+    const booksLength = _filterBooks(filterBy).length 
+    return Math.ceil(booksLength / page.size)
 }
