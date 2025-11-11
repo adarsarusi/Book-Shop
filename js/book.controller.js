@@ -17,12 +17,13 @@ function renderBooks() {
             `<tr>
             <th>Title</th>
             <th>Price</th>
+            <th>Rating</th>
             <th>Actions</th>
         </tr>`
 
         strHTMLs =[`
         <tr>
-            <td colspan="3" class="no-books-found">No Matching books were found...</td>
+            <td colspan="4" class="no-books-found">No Matching books were found...</td>
         </tr>`
         ]
     } else {
@@ -30,12 +31,14 @@ function renderBooks() {
             `<tr>
             <th>Title</th>
             <th>Price</th>
+            <th>Rating</th>
             <th>Actions</th>
         </tr>`
         strHTMLs = books.map(book => `
         <tr>
             <td>${book.name}</td>
             <td>${book.price}</td>
+            <td class="book-btns">${STAR.repeat(book.rating)}</td>
             <td class="book-btns"><button class="btn1" onclick="onShowDetails('${book.name}')">Read</button>
             <button class="btn2" onclick="onUpdateBook('${book.name}')">Update</button>
             <button class="btn3" onclick="onRemoveBook('${book.name}')">Delete</button></td>
@@ -79,7 +82,9 @@ function onShowDetails(name) {
     const elBookDetailsModal = document.querySelector('dialog.book-details-modal')
     const elContent = elBookDetailsModal.querySelector('.content')
     const book = getBookByName(name)
-    elContent.innerText = JSON.stringify(book, null, 4)
+    elContent.innerHTML = `<h2>${book.name}</h2></br>
+                           <h3>Price: ${book.price}, Rating: ${book.rating} </h3>
+                           <img class="imgInModal" src="${book.img}">`
     elBookDetailsModal.showModal()
 }
 

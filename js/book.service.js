@@ -2,6 +2,12 @@
 
 const BOOK_STORAGE_KEY = 'bookDB'
 
+const RED_IMG = 'img/red.png'
+const BLUE_IMG = 'img/blue.png'
+const YELLOW_IMG = 'img/yellow.png'
+
+const STAR = '⭐'
+
 var gBooks
 createBooks()
 
@@ -51,7 +57,7 @@ function updatePrice(name, price) {
 function addBook(name, price) {
     if (!name || !price) return alert('Cannot add blank title/price')
 
-    const book = { name, price }
+    const book = { name, price, img: getRandomImg(), rating: getRandomInt(1,5)}
     gBooks.push(book)
     updateNotification('Added book')
     _saveBooks()
@@ -69,8 +75,8 @@ function getBookStats(){
     return {expensiveBooks, averageBooks, cheapBooks}
 }
 
-function createBook(name, price){
-    return { name, price }
+function createBook(name, price, img, rating){
+    return { name, price, img, rating}
 }
 
 function createBooks() {
@@ -78,9 +84,9 @@ function createBooks() {
 
     if (!gBooks || !gBooks.length) {
         gBooks = [
-            createBook('The Adventures of Lori Ipsi', 120),
-            createBook('World Atlas', 300),
-            createBook('Zorba the Greek', 87)
+            createBook('The Adventures of Lori Ipsi', 120, getRandomImg(), getRandomInt(1,5)),
+            createBook('World Atlas', 300, getRandomImg(), getRandomInt(1,5)),
+            createBook('Zorba the Greek', 87, getRandomImg(), getRandomInt(1,5))
         ]
 
         _saveBooks()
@@ -89,4 +95,13 @@ function createBooks() {
 
 function _saveBooks() {
     saveToStorage(BOOK_STORAGE_KEY, gBooks)
+}
+
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1) ) + min;
+}
+
+function getRandomImg(){
+    const imgs = [BLUE_IMG, RED_IMG, YELLOW_IMG]
+    return imgs[getRandomInt(0, imgs.length - 1)]
 }
