@@ -9,6 +9,7 @@ const gQueryOptions = {
 }
 
 function onInit() {
+    readQueryParams()
     renderBooks()
 }
 
@@ -38,7 +39,7 @@ function renderBooks() {
 
     const elTable = document.querySelector('.book-shop')
     elTable.innerHTML = strHTMLs.join('')
-
+    setQueryParams()
     renderStats()
 }
 
@@ -116,4 +117,66 @@ function updateNotification(update) {
     notification.innerHTML = update + ' successfully!'
     notification.style.display = 'block'
     setTimeout(() => { notification.style.display = 'none' }, 2000)
+}
+
+//* Query Params
+function setQueryParams() {
+    const queryParams = new URLSearchParams()
+
+    queryParams.set('name', gQueryOptions.filterBy.name)
+    queryParams.set('rating', gQueryOptions.filterBy.rating)
+
+    if (gQueryOptions.sortBy.field) {
+        queryParams.set('sortField', gQueryOptions.sortBy.field)
+        queryParams.set('sortDir', gQueryOptions.sortBy.dir)
+    }
+
+    // if (gQueryOptions.page) {
+    //     queryParams.set('pageIdx', gQueryOptions.page.idx)
+    //     queryParams.set('pageSize', gQueryOptions.page.size)
+    // }
+
+    const newUrl =
+        window.location.protocol + "//" +
+        window.location.host +
+        window.location.pathname + '?' + queryParams.toString()
+
+    window.history.pushState({ path: newUrl }, '', newUrl)
+}
+
+function readQueryParams() {
+    const queryParams = new URLSearchParams(window.location.search)
+
+    gQueryOptions.filterBy = {
+        name: queryParams.get('name') || '',
+        rating: queryParams.get('rating') || ''
+    }
+
+    if (queryParams.get('sortField')) {
+        const field = queryParams.get('sortField')
+        const dir = queryParams.get('sortDir') || 1
+
+        gQueryOptions.sortBy.field = field
+        gQueryOptions.sortBy.dir = dir
+    }
+
+    // if (queryParams.get('pageIdx')) {
+    //     gQueryOptions.page.idx = +queryParams.get('pageIdx')
+    //     gQueryOptions.page.size = +queryParams.get('pageSize')
+    // }
+
+    renderQueryParams()
+}
+
+function renderQueryParams() {
+    document.querySelector('.search-book-input').value = gQueryOptions.filterBy.name
+    document.querySelector('.sort-field').value = gQueryOptions.filterBy.rating
+
+    const sortField = gQueryOptions.sortBy.field
+    const sortDir = +gQueryOptions.sortBy.dir
+
+    document.querySelector('.sort-by select').value = sortField || ''
+    document.querySelector('.sort-by input').checked = sortDir === -1
+
+    // document.querySelector('.page-idx').innerText = (gQueryOptions.page.idx || 0) + 1
 }
