@@ -44,6 +44,15 @@ function updatePrice(id, price) {
     _saveBooks()
 }
 
+function updateBook(id, name, price) {
+    const book = getBookById(id)
+    book.price = price
+    book.name = name
+    updateNotification('Updated book')
+    _saveBooks()
+    return book
+}
+
 function addBook(name, price) {
     const book = { id: makeId(), name, price, img: getRandomImg(), rating: getRandomInt(1, 5) }
     gBooks.push(book)

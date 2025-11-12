@@ -70,6 +70,18 @@
 
     <h2 class="notification"></h2>
 
+    <dialog class="book-edit-modal">
+        <form onsubmit="onSaveBook(this)" method="dialog">
+            <h2><span class="edit-modal">Add</span> Book</h2>
+            <input type="text" class="book-edit-name" placeholder="Enter book name">
+            <input type="number" class="book-edit-price" placeholder="Enter book price">
+            <div class="actions">
+                <button type="button" onclick="onCloseBookEditModal()">Cancel</button>
+                <button>Save</button>
+            </div>
+        </form>
+    </dialog>
+
     <dialog class="book-details-modal">
         <form method="dialog">
             <button>X</button>

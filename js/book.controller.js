@@ -1,6 +1,7 @@
 'use strict'
 
 var gFilterBy = ''
+var gBookEditId = null
 
 const gQueryOptions = {
     filterBy: { name: '', rating: 0 },
@@ -57,17 +58,72 @@ function onRemoveBook(id) {
 }
 
 function onUpdateBook(id) {
-    const newPrice = +prompt('Change price')
-    updatePrice(id, newPrice)
-    renderBooks()
+    const elEditModal = document.querySelector('.book-edit-modal')
+    const elSpanModal = document.querySelector('h2 span')
+    elSpanModal.innerText = 'Edit'
+
+    gBookEditId = id
+
+    const elName = document.querySelector('.book-edit-modal input.book-edit-name')
+    const elPrice = document.querySelector('.book-edit-modal input.book-edit-price')
+
+    const book = getBookById(id)
+
+    elName.value = book.name
+    elPrice.value = book.price
+
+    elEditModal.showModal()
+    // const newPrice = +prompt('Change price')
+    // updatePrice(id, newPrice)
+    // renderBooks()
 }
 
 function onAddBook() {
-    const bookName = prompt('Choose name')
-    const bookPrice = +prompt('Choose price')
-    if (!bookName || !bookPrice) return alert('Cannot add blank title/price')
-    addBook(bookName, bookPrice)
+    resetBookEditModal()
+    gBookEditId = null
+    const elEditModal = document.querySelector('.book-edit-modal')
+    const elSpanModal = document.querySelector('h2 span')
+    elSpanModal.innerText = 'Add'
+    elEditModal.showModal()
+
+
+    // const bookName = prompt('Choose name')
+    // const bookPrice = +prompt('Choose price')
+    // if (!bookName || !bookPrice) return alert('Cannot add blank title/price')
+    // addBook(bookName, bookPrice)
+    // renderBooks()
+}
+
+function onSaveBook(elForm){
+    const elName = elForm.querySelector('.book-edit-modal input.book-edit-name')
+    const elPrice = elForm.querySelector('.book-edit-modal input.book-edit-price')
+
+    const name = elName.value
+    const price = +elPrice.value
+
+    if (!name || !price) return alert('Cannot add blank title/price')
+
+
+    var book
+    if (gBookEditId) {
+        book = updateBook(gBookEditId, name, price)
+    } else {
+        book = addBook(name, price)
+    }
+
     renderBooks()
+}
+
+function resetBookEditModal() {
+    const elName = document.querySelector('.book-edit-modal input.book-edit-name')
+    const elPrice = document.querySelector('.book-edit-modal input.book-edit-price')
+
+    elName.value = ''
+    elPrice.value = ''
+}
+
+function onCloseBookEditModal() {
+    document.querySelector('.book-edit-modal').close()
 }
 
 function onShowDetails(id) {
@@ -120,7 +176,7 @@ function updateNotification(update) {
 }
 
 function onChangePage(diff) {
- 
+
     var nextPageIdx = gQueryOptions.page.idx + diff
     const totalPages = getTotalPagesCount(gQueryOptions)
 
